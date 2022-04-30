@@ -700,7 +700,7 @@ public final class LibUsb
 
     /**
      * Returns the API version of the underlying libusb library. It is defined
-     * as follows: (major << 24) | (minor << 16) | (16 bit incremental)
+     * as follows: (major  24) | (minor  16) | (16 bit incremental)
      *
      * @return The API version of the underlying libusb library.
      */
@@ -765,6 +765,7 @@ public final class LibUsb
      *
      * @deprecated Use {@link #setOption(Context, int, int)} instead using the {@link #OPTION_LOG_LEVEL} option.
      */
+    @Deprecated
     public static native void setDebug(final Context context, final int level);
 
     /**
@@ -2531,6 +2532,7 @@ public final class LibUsb
      * This should be called for all pollfd lists allocated with {@link #getPollfds(Context)}.
      *
      * It is legal to call this function with a NULL pollfd list. In this case, the function will simply return safely.
+     * @param pollfds to poll
      */
     public static native void freePollfds(final Pollfds pollfds);
 
