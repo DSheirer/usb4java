@@ -313,13 +313,24 @@ public final class Loader
         }
 
         loaded = true;
-        final String platform = getPlatform();
-        final String lib = getLibName();
-        final String extraLib = getExtraLibName();
-        if (extraLib != null)
+
+        //Copied from PR here: https://github.com/usb4java/usb4java/pull/80/files
+        final String libraryName = System.getProperty("org.usb4java.LibraryName");
+
+        if(libraryName != null)
         {
-            System.load(extractLibrary(platform, extraLib));
+            System.loadLibrary(libraryName);
         }
-        System.load(extractLibrary(platform, lib));
+        else
+        {
+            final String platform = getPlatform();
+            final String lib = getLibName();
+            final String extraLib = getExtraLibName();
+            if (extraLib != null)
+            {
+                System.load(extractLibrary(platform, extraLib));
+            }
+            System.load(extractLibrary(platform, lib));
+        }
     }
 }
