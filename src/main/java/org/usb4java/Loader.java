@@ -54,8 +54,27 @@ public final class Loader
         }
         if (os.equals("macosx") || os.equals("macos"))
         {
+            String version = System.getProperty("os.version");
+
+            if(version != null &&
+               version.startsWith("15") ||
+               version.startsWith("16") ||
+               version.startsWith("17") ||
+               version.startsWith("18") ||
+               version.startsWith("19") ||
+               version.startsWith("20") ||
+               version.startsWith("21") ||
+               version.startsWith("22") ||
+               version.startsWith("23") ||
+               version.startsWith("24") ||
+               version.startsWith("25"))
+            {
+                return "darwin-legacy";
+            }
+
             return "darwin";
         }
+
         return os;
     }
 
