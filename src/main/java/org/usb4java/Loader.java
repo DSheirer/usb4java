@@ -54,8 +54,27 @@ public final class Loader
         }
         if (os.equals("macosx") || os.equals("macos"))
         {
+            String version = System.getProperty("os.version");
+
+            if(version != null &&
+               version.startsWith("15") ||
+               version.startsWith("16") ||
+               version.startsWith("17") ||
+               version.startsWith("18") ||
+               version.startsWith("19") ||
+               version.startsWith("20") ||
+               version.startsWith("21") ||
+               version.startsWith("22") ||
+               version.startsWith("23") ||
+               version.startsWith("24") ||
+               version.startsWith("25"))
+            {
+                return "darwin-legacy";
+            }
+
             return "darwin";
         }
+
         return os;
     }
 
@@ -300,8 +319,8 @@ public final class Loader
      * times. Duplicate calls are ignored. This method is automatically called
      * when the {@link LibUsb} class is loaded. When you need to do it earlier
      * (To catch exceptions for example) then simply call this method manually.
-     * <p/>
-     * If the system property <tt>org.usb4java.LibraryName</tt> is defined, then
+     *
+     * If the system property org.usb4java.LibraryName is defined, then
      * instead of going through the classpath looking for the appropriate DLL,
      * extracting it, etc., we simply call {@link System#loadLibrary}, passing
      * in the value of the property.
