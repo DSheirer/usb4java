@@ -1,5 +1,7 @@
 This is a fork of usb4java that adds support for multiple Mac-OS versions where versions 15-25 use the legacy native library and version 26 uses the newer native library for compatibility with changes in Mac-OS Tahoe (version 26).
 
+The corresponding io.github.dsheirer.usb4java-native-libraries:1.3.2 contains aarch64 native libraries packaged correctly for this support.
+
 
 usb4java
 ========
