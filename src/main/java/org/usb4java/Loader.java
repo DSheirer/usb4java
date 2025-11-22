@@ -56,18 +56,7 @@ public final class Loader
         {
             String version = System.getProperty("os.version");
 
-            if(version != null &&
-               version.startsWith("15") ||
-               version.startsWith("16") ||
-               version.startsWith("17") ||
-               version.startsWith("18") ||
-               version.startsWith("19") ||
-               version.startsWith("20") ||
-               version.startsWith("21") ||
-               version.startsWith("22") ||
-               version.startsWith("23") ||
-               version.startsWith("24") ||
-               version.startsWith("25"))
+            if(version != null && version.startsWith("15") && getArch() != null && getArch().equals("aarch64"))
             {
                 return "darwin-legacy";
             }
@@ -131,7 +120,7 @@ public final class Loader
         {
             return "dll";
         }
-        if (os.equals("darwin"))
+        if (os.equals("darwin") || os.equals("darwin-legacy"))
         {
             return "dylib";
         }
@@ -257,6 +246,7 @@ public final class Loader
         final String source = '/'
             + Loader.class.getPackage().getName().replace('.', '/') + '/'
             + platform + "/" + lib;
+
 
         // Check if native library is present
         final URL url = Loader.class.getResource(source);
