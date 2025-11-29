@@ -56,9 +56,22 @@ public final class Loader
         {
             String version = System.getProperty("os.version");
 
-            if(version != null && version.startsWith("15") && getArch() != null && getArch().equals("aarch64"))
+            if(version != null)
             {
-                return "darwin-legacy";
+                String[] split = version.split("\\.");
+                try
+                {
+                    int major = Integer.parseInt(split[0]);
+
+                    if(major <= 15)
+                    {
+                        return "darwin-legacy";
+                    }
+                }
+                catch(Exception e)
+                {
+                    //Couldn't parse major version.
+                }
             }
 
             return "darwin";
