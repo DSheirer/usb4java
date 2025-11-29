@@ -54,23 +54,35 @@ public final class Loader
         }
         if (os.equals("macosx") || os.equals("macos"))
         {
-            String version = System.getProperty("os.version");
-
-            if(version != null)
+            /**
+             * There is an issue with MacOS 26 Tahoe that changed the behavior of libusb.  There is a custom build of
+             * the native libraries for version 26.x for the ARM processor.  All previous versions use the legacy
+             * library.
+             *
+             * GitHub doesn't currently support version 26 Tahoe on the x86-64 platform, so there is currently no
+             * support unless someone can build the library and send it to me.
+             */
+            if(getArch() != null && getArch().equals("aarch64"))
             {
-                String[] split = version.split("\\.");
-                try
-                {
-                    int major = Integer.parseInt(split[0]);
+                String version = System.getProperty("os.version");
 
-                    if(major <= 15)
-                    {
-                        return "darwin-legacy";
-                    }
-                }
-                catch(Exception e)
+                if(version != null)
                 {
-                    //Couldn't parse major version.
+                    String[] split = version.split("\\.");
+
+                    try
+                    {
+                        int major = Integer.parseInt(split[0]);
+
+                        if(major <= 15)
+                        {
+                            return "darwin-legacy";
+                        }
+                    }
+                    catch(Exception e)
+                    {
+                        //Couldn't parse major version.
+                    }
                 }
             }
 
